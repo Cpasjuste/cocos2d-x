@@ -29,9 +29,13 @@ THE SOFTWARE.
 #ifndef __CCTEXTURE_CACHE_H__
 #define __CCTEXTURE_CACHE_H__
 
+#ifdef SWITCH
+#include "platform/switch/tinythread.h"
+#else
 #include <mutex>
 #include <thread>
 #include <condition_variable>
+#endif
 #include <queue>
 #include <string>
 #include <unordered_map>

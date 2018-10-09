@@ -24,31 +24,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __PLATFORM_CCGL_H__
-#define __PLATFORM_CCGL_H__
-/// @cond DO_NOT_SHOW
+#ifndef __CC_STD_C_H__
+#define __CC_STD_C_H__
 
 #include "platform/CCPlatformConfig.h"
+#if CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-#include "platform/mac/CCGL-mac.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-#include "platform/ios/CCGL-ios.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "platform/android/CCGL-android.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-#include "platform/win32/CCGL-win32.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
-#include "platform/winrt/CCGL.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
-#ifdef SWITCH
-#include "platform/switch/CCGL-linux.h"
-#else
-#include "platform/linux/CCGL-linux.h"
-#endif
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN
-#include "platform/tizen/CCGL-tizen.h"
-#endif
+#include "platform/CCPlatformMacros.h"
 
-/// @endcond
-#endif /* __PLATFORM_CCPLATFORMDEFINE_H__*/
+#include <float.h>
+#include <math.h>
+#include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/time.h>
+#include <stdint.h>
+#include <limits.h>
+
+#define M_PI 3.14159265358979323846
+#define M_PI_2 1.57079632679489661923
+
+#ifndef MIN
+#define MIN(x,y) (((x) > (y)) ? (y) : (x))
+#endif  // MIN
+
+#ifndef MAX
+#define MAX(x,y) (((x) < (y)) ? (y) : (x))
+#endif  // MAX
+
+#endif // CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
+
+#endif  // __CC_STD_C_H__

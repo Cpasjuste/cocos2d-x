@@ -32,10 +32,15 @@ THE SOFTWARE.
 #include <vector>
 #include <queue>
 #include <memory>
-#include <thread>
+#ifdef SWITCH
+#include <future>
+#include "platform/switch/tinythread.h"
+#else
 #include <mutex>
+#include <thread>
 #include <condition_variable>
 #include <future>
+#endif
 #include <functional>
 #include <stdexcept>
 
@@ -121,6 +126,10 @@ protected:
         ThreadTasks()
         : _stop(false)
         {
+#ifdef SWITCH
+            // TODO:
+
+#else
             _thread = std::thread(
                                   [this]
                                   {
@@ -145,6 +154,7 @@ protected:
                                       }
                                   }
                                   );
+#endif
         }
         ~ThreadTasks()
         {

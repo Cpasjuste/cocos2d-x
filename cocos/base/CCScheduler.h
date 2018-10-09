@@ -30,7 +30,11 @@ THE SOFTWARE.
 #define __CCSCHEDULER_H__
 
 #include <functional>
+#ifdef SWITCH
+#include "platform/switch/tinythread.h"
+#else
 #include <mutex>
+#endif
 #include <set>
 
 #include "base/CCRef.h"

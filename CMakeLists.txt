@@ -28,6 +28,9 @@
 
 cmake_minimum_required(VERSION 3.6)
 
+# temp switch toolchain
+set(CMAKE_TOOLCHAIN_FILE cmake/switch.toolchain.cmake)
+
 project(Cocos2d-x)
 
 # cocos2dx root path

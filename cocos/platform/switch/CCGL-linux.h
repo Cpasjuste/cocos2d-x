@@ -1,6 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2013-2016 Chukong Technologies Inc.
+Copyright (c) 2010 cocos2d-x.org
 Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
@@ -24,31 +23,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __PLATFORM_CCGL_H__
-#define __PLATFORM_CCGL_H__
-/// @cond DO_NOT_SHOW
+#ifndef __CCGL_H__
+#define __CCGL_H__
 
 #include "platform/CCPlatformConfig.h"
+#if CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-#include "platform/mac/CCGL-mac.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-#include "platform/ios/CCGL-ios.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "platform/android/CCGL-android.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-#include "platform/win32/CCGL-win32.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
-#include "platform/winrt/CCGL.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
-#ifdef SWITCH
-#include "platform/switch/CCGL-linux.h"
-#else
-#include "platform/linux/CCGL-linux.h"
-#endif
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN
-#include "platform/tizen/CCGL-tizen.h"
-#endif
+#include <glad/glad.h>
+//#include "GL/glew.h"
 
-/// @endcond
-#endif /* __PLATFORM_CCPLATFORMDEFINE_H__*/
+#define CC_GL_DEPTH24_STENCIL8      GL_DEPTH24_STENCIL8
+
+#endif // CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
+
+#endif // __CCGL_H__

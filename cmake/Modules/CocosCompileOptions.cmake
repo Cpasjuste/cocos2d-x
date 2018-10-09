@@ -1,10 +1,11 @@
  #cmake has some strange defaults, this should help us a lot
  #Please use them everywhere
  #WINDOWS   =   Windows Desktop
- #ANDROID    =  Android
- #IOS    =  iOS
- #MACOSX    =  MacOS X
- #LINUX      =   Linux
+ #ANDROID   =   Android
+ #IOS       =   iOS
+ #MACOSX    =   MacOS X
+ #LINUX     =   Linux
+ #SWITCH    =   Switch (Linux)
  if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
      set(WINDOWS TRUE)
      set(SYSTEM_STRING "Windows Desktop")
@@ -14,6 +15,11 @@
      if(ANDROID)
          set(SYSTEM_STRING "Android")
      else()
+         set(LINUX TRUE)
+         set(SYSTEM_STRING "Linux")
+     endif()
+ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Generic")
+     if(SWITCH)
          set(LINUX TRUE)
          set(SYSTEM_STRING "Linux")
      endif()
@@ -110,9 +116,11 @@
          set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
      endif()
      if(LINUX)
-         add_definitions(-D_GNU_SOURCE)
-         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -lrt")
-         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread -lrt")
+         if(NOT LINUX)
+             add_definitions(-D_GNU_SOURCE)
+             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -lrt")
+             set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread -lrt")
+         endif()
      endif()
      # specail options for android
      if(ANDROID)
@@ -150,8 +158,13 @@
          set(PLATFORM_FOLDER ios)
      endif(MACOSX)
  elseif(LINUX)
-     add_definitions(-DLINUX)
-     set(PLATFORM_FOLDER linux)
+    if(SWITCH)
+        add_definitions(-DLINUX -DSWITCH)
+        set(PLATFORM_FOLDER switch)
+    else()
+        add_definitions(-DLINUX)
+        set(PLATFORM_FOLDER linux)
+    endif()
  elseif(ANDROID)
      add_definitions(-DUSE_FILE32API)
      set(PLATFORM_FOLDER android)

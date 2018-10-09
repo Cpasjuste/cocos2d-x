@@ -30,7 +30,11 @@ THE SOFTWARE.
 #include <vector>
 #include <unordered_map>
 #include <type_traits>
+#ifdef SWITCH
+#include "platform/switch/tinythread.h"
+#else
 #include <mutex>
+#endif
 
 #include "platform/CCPlatformMacros.h"
 #include "base/ccTypes.h"

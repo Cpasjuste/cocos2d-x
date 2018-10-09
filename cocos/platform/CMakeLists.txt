@@ -119,22 +119,43 @@ elseif(LINUX)
         )
     endif(NOT CMAKE_CROSSCOMPILING)
 
-    set(COCOS_PLATFORM_SPECIFIC_HEADER
-        platform/linux/CCApplication-linux.h
-        platform/linux/CCGL-linux.h
-        platform/linux/CCStdC-linux.h
-        platform/linux/CCFileUtils-linux.h
-        platform/linux/CCPlatformDefine-linux.h
-        platform/desktop/CCGLViewImpl-desktop.h
-        )
-    set(COCOS_PLATFORM_SPECIFIC_SRC
-        platform/linux/CCStdC-linux.cpp
-        platform/linux/CCFileUtils-linux.cpp
-        platform/linux/CCCommon-linux.cpp
-        platform/linux/CCApplication-linux.cpp
-        platform/linux/CCDevice-linux.cpp
-        platform/desktop/CCGLViewImpl-desktop.cpp
-        )
+    if(SWITCH)
+        set(COCOS_PLATFORM_SPECIFIC_HEADER
+                platform/switch/CCApplication-linux.h
+                platform/switch/CCGL-linux.h
+                platform/switch/CCStdC-linux.h
+                platform/switch/CCFileUtils-linux.h
+                platform/switch/CCPlatformDefine-linux.h
+                platform/switch/tinythread.h
+                #platform/desktop/CCGLViewImpl-desktop.h
+                )
+        set(COCOS_PLATFORM_SPECIFIC_SRC
+                platform/switch/CCStdC-linux.cpp
+                platform/switch/CCFileUtils-linux.cpp
+                platform/switch/CCCommon-linux.cpp
+                platform/switch/CCApplication-linux.cpp
+                platform/switch/CCDevice-linux.cpp
+                platform/switch/tinythread.cpp
+                #platform/desktop/CCGLViewImpl-desktop.cpp
+                )
+    else()
+        set(COCOS_PLATFORM_SPECIFIC_HEADER
+            platform/linux/CCApplication-linux.h
+            platform/linux/CCGL-linux.h
+            platform/linux/CCStdC-linux.h
+            platform/linux/CCFileUtils-linux.h
+            platform/linux/CCPlatformDefine-linux.h
+            platform/desktop/CCGLViewImpl-desktop.h
+            )
+        set(COCOS_PLATFORM_SPECIFIC_SRC
+            platform/linux/CCStdC-linux.cpp
+            platform/linux/CCFileUtils-linux.cpp
+            platform/linux/CCCommon-linux.cpp
+            platform/linux/CCApplication-linux.cpp
+            platform/linux/CCDevice-linux.cpp
+            platform/desktop/CCGLViewImpl-desktop.cpp
+            )
+    endif()
 endif()
 
 set(COCOS_PLATFORM_HEADER

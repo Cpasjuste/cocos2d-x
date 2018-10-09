@@ -40,13 +40,25 @@ typedef SSIZE_T ssize_t;
 #include <sys/select.h>
 #endif
 
+#ifndef SWITCH
 #include <thread>
+#endif
 #include <vector>
 #include <unordered_map>
 #include <functional>
 #include <string>
+#ifndef SWITCH
 #include <mutex>
+#endif
 #include <stdarg.h>
+
+#ifdef SWITCH
+#include "platform/switch/tinythread.h"
+//namespace std::thread = tthread::thread;
+//namespace std::tmutex = tthread::mutex;
+//#define std::thread tthread::thread
+//#define std::mutex tthread::mutex
+#endif
 
 #include "base/CCRef.h"
 #include "base/ccMacros.h"
@@ -83,33 +95,33 @@ public:
         static std::string& ltrim(std::string& s);
         static std::string& rtrim(std::string& s);
         static std::string& trim(std::string& s);
-        
+
         // split
         static std::vector<std::string>& split(const std::string& s, char delim, std::vector<std::string>& elems);
         static std::vector<std::string> split(const std::string& s, char delim);
-        
+
         /** Checks myString is a floating-point type. */
         static bool isFloat(const std::string& myString);
-        
+
         /** send a message to console */
         static ssize_t sendToConsole(int fd, const void* buffer, size_t length, int flags = 0);
-        
+
         /** my dprintf() */
         static ssize_t mydprintf(int sock, const char *format, ...);
-        
+
         /** send prompt string to console */
         static void sendPrompt(int fd);
-        
+
         /** set a new string for the prompt. */
         static void setPrompt(const std::string &prompt);
-        
+
         /** get the prompt string. */
         static const std::string& getPrompt();
-        
+
     private:
         static std::string _prompt;  /*!< prompt */
     };
-    
+
     /** Command Struct */
     class CC_DLL Command
     {
@@ -134,22 +146,22 @@ public:
 
         /** Move operator */
         Command& operator=(Command&& o);
-        
+
         /** add callback */
         void addCallback(const Callback& callback);
-        
+
         /** add sub command */
         void addSubCommand(const Command& subCmd);
-        
+
         /** get sub command */
         const Command* getSubCommand(const std::string& subCmdName) const;
-        
+
         /** delete sub command */
         void delSubCommand(const std::string& subCmdName);
-        
+
         /** help command handler */
         void commandHelp(int fd, const std::string& args);
-        
+
         /** generic command handler */
         void commandGeneric(int fd, const std::string& args);
 
@@ -186,12 +198,12 @@ public:
     void addCommand(const Command& cmd);
     void addSubCommand(const std::string& cmdName, const Command& subCmd);
     void addSubCommand(Command& cmd, const Command& subCmd);
-    
+
     /** get custom command */
     const Command* getCommand(const std::string& cmdName);
     const Command* getSubCommand(const std::string& cmdName, const std::string& subCmdName);
     const Command* getSubCommand(const Command& cmd, const std::string& subCmdName);
-    
+
     /** delete custom command */
     void delCommand(const std::string& cmdName);
     void delSubCommand(const std::string& cmdName, const std::string& subCmdName);
@@ -209,22 +221,22 @@ public:
 
     /** Checks whether the server for console is bound with ipv6 address */
     bool isIpv6Server() const;
-    
+
     /** The command separator */
     CC_SYNTHESIZE(char, _commandSeparator, CommandSeparator);
 
 protected:
     // Main Loop
     void loop();
-    
+
     // Helpers
     ssize_t readline(int fd, char *buf, size_t maxlen);
     ssize_t readBytes(int fd, char* buffer, size_t maxlen, bool* more);
     bool parseCommand(int fd);
     void performCommand(int fd, const std::string& command);
-    
+
     void addClient();
-    
+
     // create a map of command.
     void createCommandAllocator();
     void createCommandConfig();
@@ -294,12 +306,12 @@ protected:
     std::string _bindAddress;
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(Console);
-    
+
     // helper functions
     int printSceneGraph(int fd, Node* node, int level);
     void printSceneGraphBoot(int fd);
     void printFileUtils(int fd);
-    
+
     /** send help message to console */
     static void sendHelp(int fd, const std::unordered_map<std::string, Command*>& commands, const char* msg);
 };

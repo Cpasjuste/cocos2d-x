@@ -1274,7 +1274,7 @@ void FileUtils::listFilesRecursively(const std::string& dirPath, std::vector<std
 
 // android doesn't have ftw.h
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
-#include <ftw.h>
+//#include <ftw.h>
 #endif
 
 bool FileUtils::isDirectoryExistInternal(const std::string& dirPath) const

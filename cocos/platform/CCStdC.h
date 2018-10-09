@@ -40,7 +40,11 @@ THE SOFTWARE.
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
 #include "platform/winrt/CCStdC.h"
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
+#if SWITCH
+#include "platform/switch/CCStdC-linux.h"
+#else
 #include "platform/linux/CCStdC-linux.h"
+#endif
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN
 #include "platform/tizen/CCStdC-tizen.h"
 #endif
